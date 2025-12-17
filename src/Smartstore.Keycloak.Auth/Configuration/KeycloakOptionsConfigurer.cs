@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Autofac;
 using Microsoft.AspNetCore.Authentication;
@@ -71,6 +72,18 @@ namespace Smartstore.Keycloak.Auth
 
             // Disable Pushed Authorization Requests (PAR) - not all Keycloak configurations support it
             options.PushedAuthorizationBehavior = PushedAuthorizationBehavior.Disable;
+
+            // For development: optionally bypass SSL certificate validation
+            // WARNING: Never use this in production!
+            var dangerouslyAcceptAnyCert = Environment.GetEnvironmentVariable("SMARTSTORE_KEYCLOAK_DANGEROUSLY_ACCEPT_ANY_CERT");
+            if (!string.IsNullOrEmpty(dangerouslyAcceptAnyCert) && 
+                (dangerouslyAcceptAnyCert.Equals("true", StringComparison.OrdinalIgnoreCase) || dangerouslyAcceptAnyCert == "1"))
+            {
+                options.BackchannelHttpHandler = new HttpClientHandler
+                {
+                    ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+                };
+            }
 
             // Standard OIDC scopes
             options.Scope.Clear();
