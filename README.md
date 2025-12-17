@@ -83,7 +83,7 @@ src/Smartstore.Keycloak.Auth/bin/Release/
 
 ## Docker Deployment
 
-See the [DockerBuildSmartstore](https://github.com/inscico/DockerBuildSmartstore) repository for a Dockerfile that builds Smartstore with this module included.
+See the [DockerBuildSmartstore](https://github.com/monromeadows/DockerBuildSmartstore) repository for a Dockerfile that builds Smartstore with this module included.
 
 ## License
 
