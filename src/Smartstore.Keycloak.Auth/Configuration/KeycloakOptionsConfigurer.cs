@@ -45,22 +45,50 @@ namespace Smartstore.Keycloak.Auth
             var realm = GetConfigValue("SMARTSTORE_KEYCLOAK_REALM", settings.Realm);
             var clientId = GetConfigValue("SMARTSTORE_KEYCLOAK_CLIENTID", settings.ClientId);
             var clientSecret = GetConfigValue("SMARTSTORE_KEYCLOAK_CLIENTSECRET", settings.ClientSecret);
+            
+            // Optional: separate URL for backend/metadata calls (useful in Docker where container 
+            // needs to reach Keycloak via different hostname than browser)
+            var metadataAuthority = Environment.GetEnvironmentVariable("SMARTSTORE_KEYCLOAK_METADATA_AUTHORITY")?.TrimEnd('/');
 
             // Build the Keycloak authority URL
             // If authority already contains "/realms/", use it as-is (it's the full OIDC authority URL)
             // Otherwise, construct it as {Authority}/realms/{Realm}
+            string authorityUrl = null;
+            string metadataAuthorityUrl = null;
+            
             if (!string.IsNullOrEmpty(authority))
             {
                 if (authority.Contains("/realms/"))
                 {
-                    // Authority is already the full URL (e.g., https://keycloak.example.com/realms/myrealm)
-                    options.Authority = authority;
+                    authorityUrl = authority;
                 }
                 else if (!string.IsNullOrEmpty(realm))
                 {
-                    // Authority is the base URL, append /realms/{realm}
-                    options.Authority = $"{authority}/realms/{realm}";
+                    authorityUrl = $"{authority}/realms/{realm}";
                 }
+            }
+            
+            // Build metadata authority URL if specified (for Docker scenarios)
+            if (!string.IsNullOrEmpty(metadataAuthority))
+            {
+                if (metadataAuthority.Contains("/realms/"))
+                {
+                    metadataAuthorityUrl = metadataAuthority;
+                }
+                else if (!string.IsNullOrEmpty(realm))
+                {
+                    metadataAuthorityUrl = $"{metadataAuthority}/realms/{realm}";
+                }
+            }
+            
+            options.Authority = authorityUrl;
+            
+            // If a separate metadata authority is configured, use it for OIDC discovery
+            // This allows the browser to redirect to localhost while the container fetches
+            // metadata from a Docker-accessible hostname (e.g., host.docker.internal)
+            if (!string.IsNullOrEmpty(metadataAuthorityUrl))
+            {
+                options.MetadataAddress = $"{metadataAuthorityUrl}/.well-known/openid-configuration";
             }
 
             options.ClientId = clientId;
