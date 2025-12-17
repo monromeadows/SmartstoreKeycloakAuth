@@ -45,10 +45,21 @@ namespace Smartstore.Keycloak.Auth
             var clientId = GetConfigValue("SMARTSTORE_KEYCLOAK_CLIENTID", settings.ClientId);
             var clientSecret = GetConfigValue("SMARTSTORE_KEYCLOAK_CLIENTSECRET", settings.ClientSecret);
 
-            // Build the Keycloak authority URL: {Authority}/realms/{Realm}
-            if (!string.IsNullOrEmpty(authority) && !string.IsNullOrEmpty(realm))
+            // Build the Keycloak authority URL
+            // If authority already contains "/realms/", use it as-is (it's the full OIDC authority URL)
+            // Otherwise, construct it as {Authority}/realms/{Realm}
+            if (!string.IsNullOrEmpty(authority))
             {
-                options.Authority = $"{authority}/realms/{realm}";
+                if (authority.Contains("/realms/"))
+                {
+                    // Authority is already the full URL (e.g., https://keycloak.example.com/realms/myrealm)
+                    options.Authority = authority;
+                }
+                else if (!string.IsNullOrEmpty(realm))
+                {
+                    // Authority is the base URL, append /realms/{realm}
+                    options.Authority = $"{authority}/realms/{realm}";
+                }
             }
 
             options.ClientId = clientId;

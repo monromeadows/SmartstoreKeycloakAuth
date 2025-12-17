@@ -23,12 +23,12 @@ The module supports configuration via environment variables, which take preceden
 
 | Variable | Description |
 |----------|-------------|
-| `SMARTSTORE_KEYCLOAK_AUTHORITY` | Full authority URL (e.g., `https://keycloak.example.com/realms/myrealm`) |
-| `SMARTSTORE_KEYCLOAK_REALM` | Keycloak realm name (alternative to full authority) |
+| `SMARTSTORE_KEYCLOAK_AUTHORITY` | Full OIDC authority URL including realm (e.g., `https://keycloak.example.com/realms/myrealm`) or base URL if using `REALM` |
+| `SMARTSTORE_KEYCLOAK_REALM` | Keycloak realm name (only needed if `AUTHORITY` is the base URL without `/realms/`) |
 | `SMARTSTORE_KEYCLOAK_CLIENTID` | OAuth client ID configured in Keycloak |
 | `SMARTSTORE_KEYCLOAK_CLIENTSECRET` | OAuth client secret |
 
-**Note:** If `SMARTSTORE_KEYCLOAK_AUTHORITY` is set, it is used directly. Otherwise, if `SMARTSTORE_KEYCLOAK_REALM` is set, the authority is constructed as `{BaseAuthority}/realms/{Realm}`.
+**Note:** If `SMARTSTORE_KEYCLOAK_AUTHORITY` contains `/realms/`, it is used as the complete OIDC authority URL. Otherwise, if `SMARTSTORE_KEYCLOAK_REALM` is also set, the authority is constructed as `{AUTHORITY}/realms/{REALM}`.
 
 ### Admin Configuration
 
