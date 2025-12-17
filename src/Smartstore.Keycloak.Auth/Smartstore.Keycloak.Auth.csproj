@@ -3,29 +3,12 @@
     <Product>Smartstore Keycloak Authentication</Product>
     <Description>Keycloak authentication module for Smartstore using OpenID Connect</Description>
     <Authors>Inscico</Authors>
-    
-    <!-- Output to a standard location for the module -->
-    <OutputPath>bin\$(Configuration)\</OutputPath>
-    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <OutputPath>..\..\Smartstore.Web\Modules\Smartstore.Keycloak.Auth</OutputPath>
+    <OutDir>$(OutputPath)</OutDir>
   </PropertyGroup>
 
-  <!-- Reference Smartstore projects from source -->
-  <ItemGroup>
-    <ProjectReference Include="$(SmartstoreSourcePath)\src\Smartstore.Web.Common\Smartstore.Web.Common.csproj">
-      <Private>false</Private>
-      <ExcludeAssets>runtime</ExcludeAssets>
-    </ProjectReference>
-  </ItemGroup>
-
-  <!-- OpenID Connect package -->
+  <!-- OpenID Connect package (will be listed in module.json PrivateReferences) -->
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="9.0.0" />
-  </ItemGroup>
-
-  <!-- Ensure content files are copied to output (Use Update instead of Include to avoid duplicates with SDK defaults) -->
-  <ItemGroup>
-    <Content Update="module.json" CopyToOutputDirectory="PreserveNewest" />
-    <Content Update="Views\**\*" CopyToOutputDirectory="PreserveNewest" />
-    <Content Update="Localization\**\*" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 </Project>
