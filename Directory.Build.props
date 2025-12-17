@@ -1,0 +1,16 @@
+<Project>
+  <PropertyGroup>
+    <!-- Smartstore version to build against -->
+    <SmartstoreVersion>6.3.0</SmartstoreVersion>
+    <SmartstoreTag>v$(SmartstoreVersion)</SmartstoreTag>
+    
+    <!-- Path to Smartstore source (set by build script or default to sibling folder) -->
+    <SmartstoreSourcePath Condition="'$(SmartstoreSourcePath)' == ''">$(MSBuildThisFileDirectory)..\Smartstore</SmartstoreSourcePath>
+    
+    <!-- Common build settings -->
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+</Project>

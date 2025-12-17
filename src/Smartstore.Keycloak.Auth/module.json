@@ -1,0 +1,15 @@
+{
+  "$schema": "../module.schema.json",
+  "Group": "Security",
+  "SystemName": "Smartstore.Keycloak.Auth",
+  "FriendlyName": "Keycloak Authentication",
+  "Description": "Enables login with Keycloak identity provider using OpenID Connect.",
+  "Version": "0.1.0",
+  "MinAppVersion": "6.3.0",
+  "Author": "Inscico",
+  "Order": 1,
+  "ResourceRootKey": "Plugins.ExternalAuth.Keycloak",
+  "PrivateReferences": [
+    "Microsoft.AspNetCore.Authentication.OpenIdConnect"
+  ]
+}

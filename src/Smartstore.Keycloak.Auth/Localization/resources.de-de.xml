@@ -1,0 +1,57 @@
+<Language Name="Deutsch" IsDefault="false" IsRightToLeft="false">
+    <LocaleResource Name="Plugins.FriendlyName.Smartstore.Keycloak.Auth" AppendRootKey="false">
+        <Value>Keycloak-Anmeldung</Value>
+    </LocaleResource>
+    <LocaleResource Name="Plugins.Description.Smartstore.Keycloak.Auth" AppendRootKey="false">
+        <Value>Ermöglicht die Authentifizierung über Keycloak mittels OpenID Connect.</Value>
+    </LocaleResource>
+    <LocaleResource Name="AdminInstruction">
+        <Value>
+            <![CDATA[
+			<p>So richten Sie die Keycloak-Authentifizierung ein:</p>
+			<ul>
+				<li>Melden Sie sich bei Ihrer <b>Keycloak-Administrationskonsole</b> an.</li>
+				<li>Wählen oder erstellen Sie einen <b>Realm</b> für Ihre Anwendung.</li>
+				<li>Navigieren Sie zu <b>Clients</b> und erstellen Sie einen neuen Client mit <b>Client type: OpenID Connect</b>.</li>
+				<li>Setzen Sie <b>Client authentication</b> auf <b>On</b>, um den vertraulichen Zugriff (Client Secret) zu aktivieren.</li>
+				<li>Fügen Sie die unten angezeigte <b>Redirect-URI</b> zur Liste der <b>Valid redirect URIs</b> des Clients hinzu.</li>
+				<li>Kopieren Sie die <b>Client-ID</b> und das <b>Client Secret</b> (aus dem Tab "Credentials") in das Formular unten.</li>
+				<li>Geben Sie Ihre Keycloak-Server-URL (Authority) und den Realm-Namen ein.</li>
+			</ul>
+			]]>
+        </Value>
+    </LocaleResource>
+    <LocaleResource Name="Login">
+        <Value>Mit Keycloak anmelden</Value>
+    </LocaleResource>
+    <LocaleResource Name="Authority">
+        <Value>Keycloak-Server-URL</Value>
+    </LocaleResource>
+    <LocaleResource Name="Authority.Hint">
+        <Value>Die Basis-URL Ihres Keycloak-Servers (z.B. https://keycloak.example.com).</Value>
+    </LocaleResource>
+    <LocaleResource Name="Realm">
+        <Value>Realm</Value>
+    </LocaleResource>
+    <LocaleResource Name="Realm.Hint">
+        <Value>Der Name des Keycloak-Realms, gegen den authentifiziert werden soll.</Value>
+    </LocaleResource>
+    <LocaleResource Name="ClientId">
+        <Value>Client-ID</Value>
+    </LocaleResource>
+    <LocaleResource Name="ClientId.Hint">
+        <Value>Die in Keycloak konfigurierte OpenID Connect Client-ID.</Value>
+    </LocaleResource>
+    <LocaleResource Name="ClientSecret">
+        <Value>Client Secret</Value>
+    </LocaleResource>
+    <LocaleResource Name="ClientSecret.Hint">
+        <Value>Das Client Secret aus dem Tab "Credentials" in Keycloak.</Value>
+    </LocaleResource>
+    <LocaleResource Name="RedirectUri">
+        <Value>Redirect-URI</Value>
+    </LocaleResource>
+    <LocaleResource Name="RedirectUri.Hint">
+        <Value>Die OAuth-Redirect-URI, die in Keycloaks "Valid redirect URIs" eingetragen werden muss.</Value>
+    </LocaleResource>
+</Language>
