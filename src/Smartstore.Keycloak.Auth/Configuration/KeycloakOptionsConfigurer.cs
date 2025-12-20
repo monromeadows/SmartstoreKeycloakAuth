@@ -112,6 +112,15 @@ namespace Smartstore.Keycloak.Auth
                     ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
                 };
             }
+            
+            // For development: allow HTTP metadata endpoints (non-HTTPS)
+            // WARNING: Never use this in production!
+            var requireHttpsMetadata = Environment.GetEnvironmentVariable("SMARTSTORE_KEYCLOAK_REQUIRE_HTTPS_METADATA");
+            if (!string.IsNullOrEmpty(requireHttpsMetadata) && 
+                (requireHttpsMetadata.Equals("false", StringComparison.OrdinalIgnoreCase) || requireHttpsMetadata == "0"))
+            {
+                options.RequireHttpsMetadata = false;
+            }
 
             // Standard OIDC scopes
             options.Scope.Clear();
